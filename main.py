@@ -19,8 +19,8 @@ note_table.putBoolean("Initialized", True)
 def exit_handler():
     note_table.putBoolean("Initialized", False)
     time.sleep(0.1)
-    if args.usbcam:
-        cap.release()
+    # Release the capture when everything is done
+    cap.release()
     cv2.destroyAllWindows()
 
 
@@ -33,7 +33,7 @@ parser.add_argument('--labelmap', required=True, help='Path to the label map fil
 parser.add_argument('--threshold', type=float, default=0.5, help='Detection threshold')
 parser.add_argument('--ntip', default="10.75.20.2", help='NetworkTables IP')
 # Pi Camera option
-parser.add_argument('--usbcam', type=bool, default=True, help='Use USB Camera')
+parser.add_argument('--picamera', action='store_true', help='Use Pi Camera')
 args = parser.parse_args()
 
 # Set the model path and label map path
@@ -70,20 +70,14 @@ fps_start_time = cv2.getTickCount()
 fps_queue = collections.deque(maxlen=30)
 
 
-if args.usbcam:
-    # Initialize webcam
-    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+# Initialize webcam
+cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
 
-    # change res
+# change res
 
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-    cap.set(cv2.CAP_PROP_FPS, 30)
-else:
-    from picamera2 import Picamera2
-
-    picam2 = Picamera2()
-    picam2.start()
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+cap.set(cv2.CAP_PROP_FPS, 30)
 
 stream = Stream("intakeCam", size=(854, 480), quality=50, fps=30)
 
@@ -92,17 +86,13 @@ server.add_stream(stream)
 server.start()
 
 while True:
-    frame = None
     # Capture frame-by-frame
-    if args.usbcam:
-        ret, frame = cap.read()
-        if not ret:
-            # Loop video
-            # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-            # continue
-            break
-    else:
-        frame = picam2.capture_array()
+    ret, frame = cap.read()
+    if not ret:
+        # Loop video
+        # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        # continue
+        break
 
     # Resize and process frame
     image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

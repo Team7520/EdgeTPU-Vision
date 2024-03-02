@@ -32,6 +32,8 @@ parser.add_argument('--weights', required=True, help='Path to the TensorFlow Lit
 parser.add_argument('--labelmap', required=True, help='Path to the label map file')
 parser.add_argument('--threshold', type=float, default=0.5, help='Detection threshold')
 parser.add_argument('--ntip', default="10.75.20.2", help='NetworkTables IP')
+# Pi Camera option
+parser.add_argument('--picamera', action='store_true', help='Use Pi Camera')
 args = parser.parse_args()
 
 # Set the model path and label map path
@@ -69,7 +71,7 @@ fps_queue = collections.deque(maxlen=30)
 
 
 # Initialize webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
 
 # change res
 

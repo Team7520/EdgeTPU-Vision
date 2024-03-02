@@ -43,13 +43,13 @@ with open(labelmap_path, 'r') as f:
     labels = [line.strip() for line in f.readlines()]
     print(labels)
 
-    delegate = {"Linux": "libedgetpu.so.1", "Darwin": "libedgetpu.1.dylib", "Windows": "edgetpu.dll"}[
-        platform.system()
-    ]
+delegate = {"Linux": "libedgetpu.so.1", "Darwin": "libedgetpu.1.dylib", "Windows": "edgetpu.dll"}[
+    platform.system()
+]
 
 # Load the Tensorflow Lite model into memory
 interpreter = tflite.Interpreter(model_path,
-                          experimental_delegates=[tflite.load_delegate('edgetpu.dll')])
+                          experimental_delegates=[tflite.load_delegate(delegate)])
 interpreter.allocate_tensors()
 
 # Get model details

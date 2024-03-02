@@ -181,7 +181,7 @@ while True:
     final_frame = frame
 
     # Display the resulting frame
-    cv2.imshow('Object detector', frame)
+    # cv2.imshow('Object detector', frame)
 
     # time.sleep(0.1)
     # Break the loop when 'q' is pressed

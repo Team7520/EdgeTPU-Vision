@@ -75,8 +75,9 @@ cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
 
 # change res
 
-cap.set(3, 1280)  # Set frame width to 1920
-cap.set(4, 720)  # Set frame height to 1080
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+cap.set(cv2.CAP_PROP_FPS, 30)
 
 stream = Stream("intakeCam", size=(854, 480), quality=50, fps=30)
 

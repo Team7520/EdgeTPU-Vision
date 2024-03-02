@@ -31,6 +31,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--weights', required=True, help='Path to the TensorFlow Lite model')
 parser.add_argument('--labelmap', required=True, help='Path to the label map file')
 parser.add_argument('--threshold', type=float, default=0.5, help='Detection threshold')
+parser.add_argument('--ntip', default="10.75.20.2", help='NetworkTables IP')
 args = parser.parse_args()
 
 # Set the model path and label map path
@@ -77,7 +78,7 @@ cap.set(4, 720)  # Set frame height to 1080
 
 stream = Stream("intakeCam", size=(854, 480), quality=50, fps=30)
 
-server = MjpegServer("localhost", 8080)
+server = MjpegServer("0.0.0.0", 8080)
 server.add_stream(stream)
 server.start()
 

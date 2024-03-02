@@ -69,7 +69,7 @@ fps_queue = collections.deque(maxlen=30)
 
 
 # Initialize webcam
-cap = cv2.VideoCapture("video.mp4")
+cap = cv2.VideoCapture(0)
 
 # change res
 
@@ -87,8 +87,9 @@ while True:
     ret, frame = cap.read()
     if not ret:
         # Loop video
-        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-        continue
+        # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        # continue
+        break
 
     # Resize and process frame
     image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

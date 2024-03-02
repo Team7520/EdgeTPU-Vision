@@ -86,8 +86,8 @@ while True:
     ret, frame = cap.read()
     if not ret:
         # Loop video
-        # cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-        break
+        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        continue
 
     # Resize and process frame
     image_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -181,7 +181,7 @@ while True:
     final_frame = frame
 
     # Display the resulting frame
-    cv2.imshow('Object detector', frame)
+    # cv2.imshow('Object detector', frame)
 
     # time.sleep(0.1)
     # Break the loop when 'q' is pressed

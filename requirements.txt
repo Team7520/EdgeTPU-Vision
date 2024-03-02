@@ -1,0 +1,5 @@
+opencv-python
+mjpeg-streamer
+numpy
+tflite-runtime
+pynetworktables

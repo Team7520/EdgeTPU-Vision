@@ -12,7 +12,7 @@ server.start()
 
 while True:
 	_, frame = cap.read()
-	cv2.imshow(stream.name, frame)
+	#cv2.imshow(stream.name, frame)
 	if cv2.waitKey(1) == ord("q"):
 		break
 		

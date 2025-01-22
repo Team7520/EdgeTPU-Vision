@@ -24,7 +24,7 @@ def exit_handler():
     cv2.destroyAllWindows()
 
 
-atexit.register(exit_handler)
+#atexit.register(exit_handler)
 
 # Parse command line arguments
 parser = argparse.ArgumentParser()
@@ -81,7 +81,7 @@ cap.set(cv2.CAP_PROP_FPS, 30)
 
 stream = Stream("intakeCam", size=(854, 480), quality=50, fps=30)
 
-server = MjpegServer("0.0.0.0", 8080)
+server = MjpegServer("localhost", 8080)
 server.add_stream(stream)
 server.start()
 

@@ -1,0 +1,8 @@
+Make sure you run the shell script using source:
+
+$ source u22.04_noteDetection_installations.sh
+
+If you run the script with sh, then you cannot activate the python virtual environment.
+This script has only been tested on Ubuntu 22.04, but should work for 24.04 and 20.04.
+
+-Robin Yan
